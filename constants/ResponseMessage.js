@@ -1,4 +1,5 @@
 const ResponseMessages = {
+  PERMISSION_DENIED:'User has no permission',
   EMAIL_OR_MOBILE_EXITS: "User with the email or mobile already exists",
   EMAIL_ALREADY_EXIST: "User with the email already exists",
   USER_NOT_FOUND: "User with the email address not found",
