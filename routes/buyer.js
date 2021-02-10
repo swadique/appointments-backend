@@ -5,4 +5,4 @@ router.get("/", (req, res) => {
   res.send("Hello");
 });
 
-module.exports.BuyerRoutes = router;
+module.exports.buyerRoutes = router;

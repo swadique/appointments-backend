@@ -1,17 +1,16 @@
 const mongoose = require("mongoose");
 let database = mongoose.connection;
 class MongoClient {
-  static connect() {
-    try {
-      mongoose.connect("mongodb://localhost:27017/AppointmentsDb", {
+  static async connect() {
+    mongoose
+      .connect("mongodb://localhost:27017/AppointmentsDb", {
         useNewUrlParser: true,
         useFindAndModify: true,
         useUnifiedTopology: true,
         useCreateIndex: true,
-      });
-    } catch (error) {
-      console.log("Database connection error:", error);
-    }
+      })
+      .catch((e) => console.log(e.message));
+
     database.once("open", () => {
       console.log("Database connected");
     });
