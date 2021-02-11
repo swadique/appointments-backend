@@ -1,0 +1,52 @@
+
+
+
+POST http://localhost:8001/public/register
+content-type: application/json
+
+
+{
+    "firstName":"swadique",
+    "email": "swadiqu16@gmail.com",
+    "password": "123456",
+    "timeSlots":[{"key":0},{"key":1,"sds":"sdsd"}],
+    "userType":"buyer"
+}
+
+###
+
+POST http://localhost:8001/public/login
+content-type: application/json
+
+
+{
+    "email": "swadique8@gmail.com",
+    "password": "123456"
+}
+
+###
+
+GET http://localhost:8001/buyer/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDIzYmIxNzBjNDY4NzgzZTIwMmYyMjQiLCJ1c2VyVHlwZSI6ImJ1eWVyIiwiaWF0IjoxNjEyOTU4NDE0LCJleHAiOjE2MTMwNDQ4MTR9.d8GfzVQTluqq0y1QinLPAywc2X5vHPKGvFaSKqAPAvs
+
+### 
+
+GET http://localhost:8001/user/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDIzYmIxNzBjNDY4NzgzZTIwMmYyMjQiLCJ1c2VyVHlwZSI6ImJ1eWVyIiwiaWF0IjoxNjEyOTU4NDE0LCJleHAiOjE2MTMwNDQ4MTR9.d8GfzVQTluqq0y1QinLPAywc2X5vHPKGvFaSKqAPAvs
+
+
+###
+
+###
+
+GET http://localhost:8001/user/sellers-list
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDIzYmIxNzBjNDY4NzgzZTIwMmYyMjQiLCJ1c2VyVHlwZSI6ImJ1eWVyIiwiaWF0IjoxNjEyOTU4NDE0LCJleHAiOjE2MTMwNDQ4MTR9.d8GfzVQTluqq0y1QinLPAywc2X5vHPKGvFaSKqAPAvs
+
+###
+
+GET http://localhost:8001/user/buyers-list
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDIzYmIxNzBjNDY4NzgzZTIwMmYyMjQiLCJ1c2VyVHlwZSI6ImJ1eWVyIiwiaWF0IjoxNjEyOTU4NDE0LCJleHAiOjE2MTMwNDQ4MTR9.d8GfzVQTluqq0y1QinLPAywc2X5vHPKGvFaSKqAPAvs

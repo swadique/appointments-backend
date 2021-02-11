@@ -4,9 +4,19 @@ const checkPermission = require("../middlewares/checkPermission");
 const PermissionsList = require("../permissions/permissions");
 const router = express.Router();
 
-router.get("/",checkPermission(PermissionsList.VIEW_ALL_BUYERS), userController.getMyProfile);
-// router.get("/sellers-list", userController.getAllSellers);
-// router.get("/buyers-list", userController.getAllBuyers);
+router.get(
+  "/",
+  checkPermission(PermissionsList.VIEW_MY_PROFILE),
+  userController.getMyProfile
+);
+router.post(
+    "/",
+    checkPermission(PermissionsList.EDIT_MY_PROFILE),
+    userController.getMyProfile
+  );
+router.get("/sellers-list",checkPermission(PermissionsList.VIEW_ALL_SELLERS), userController.getAllSellers);
+router.get("/buyers-list",checkPermission(PermissionsList.VIEW_ALL_BUYERS), userController.getAllBuyers);
+router.post("/")
 
 
 module.exports.userRoutes = router;

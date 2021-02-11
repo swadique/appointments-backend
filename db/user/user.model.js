@@ -4,5 +4,5 @@ const model = mongoose.model;
 
 const UserModel = model("user", UserSchema);
 
-console.log(UserModel.insertNewUser)
+
 module.exports = UserModel;
