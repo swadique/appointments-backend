@@ -1,7 +1,8 @@
 const express = require("express");
+const AppointmentController = require("../controllers/appointments");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  res.send("Hello");
-});
+router.post("/", AppointmentController.createNewAppointment);
+router.get("/", AppointmentController.getAvailableSlots);
+
 module.exports.appointmentsRoutes = router;

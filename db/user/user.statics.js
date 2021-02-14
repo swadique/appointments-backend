@@ -1,3 +1,4 @@
+const { required } = require("joi");
 const ErrorResponse = require("../../utils/ErrorResponse");
 const SuccessResponse = require("../../utils/SuccessResponse");
 
@@ -27,5 +28,14 @@ async function findByEmail(email) {
     throw e;
   }
 }
+async function getTimeSlot(userId, slotId) {
+  try {
+    const { timeSlots } = await this.findById({ _id: userId }).lean();
+    const requiredSlot = timeSlots.find((element) => element.key == slotId);
+    return requiredSlot;
+  } catch (e) {
+    throw e;
+  }
+}
 
-module.exports = { insertNewUser, findByEmail };
+module.exports = { insertNewUser, findByEmail, getTimeSlot };

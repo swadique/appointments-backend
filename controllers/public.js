@@ -41,17 +41,21 @@ async function createNewUser(req, res, next) {
 async function login(req, res, next) {
   try {
     const { email, password } = req.body;
-    let userData = await UserModel.findByEmail(email);
+    const userProjection = "_id email firstName lastName timeSlots userType";
+    let userData = await UserModel.findByEmail(email, userProjection);
+
     if (!userData) {
       res.status(HttpCode.UNAUTHORIZED).send(ResponseMessages.USER_NOT_FOUND);
     } else {
-      if (comparePassword(password, userData.password)) {
+      const { password: savedPassword, ...restUserData } = userData;
+      if (comparePassword(password, savedPassword)) {
         const authToken = generateAuthToken(userData._id, userData.userType);
-        res.status(HttpCode.OK).send({ authToken: authToken });
+        res.status(HttpCode.OK).send({ authToken: authToken, ...restUserData });
       }
     }
   } catch (e) {
-    res.status(HttpCode.INTERNAL_SERVER_ERROR).send(e.message);
+    console.log(e);
+    res.status(HttpCode.INTERNAL_SERVER_ERROR);
   }
 }
 

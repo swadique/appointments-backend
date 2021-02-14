@@ -36,13 +36,30 @@ async function getAllBuyers(req, res, next) {
   try {
     const user = await UserModel.find(
       { userType: UsersList.BUYER },
-      "firstName email userType"
+      "_id firstName lastName email userType timeSlots"
     ).exec();
     res.status(HttpCode.OK).send(user);
   } catch (e) {
     res.status(HttpCode.INTERNAL_SERVER_ERROR).send(e.message);
   }
 }
+async function updateMySlots(req, res, next) {
+  const userId = req.userId;
+  const { timeSlots } = req.body;
+  try {
+    const user = await UserModel.findByIdAndUpdate(userId, {'timeSlots':timeSlots}, {
+      new: true,
+    }).exec();
+    res.status(HttpCode.OK).send(user);
+  } catch (e) {
+    res.status(HttpCode.INTERNAL_SERVER_ERROR).send(e.message);
+  }
+}
 
-const userController = { getMyProfile, getAllSellers, getAllBuyers };
+const userController = {
+  getMyProfile,
+  getAllSellers,
+  getAllBuyers,
+  updateMySlots,
+};
 module.exports = userController;

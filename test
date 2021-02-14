@@ -6,10 +6,9 @@ content-type: application/json
 
 
 {
-    "firstName":"swadique",
-    "email": "swadiqu16@gmail.com",
-    "password": "123456",
-    "timeSlots":[{"key":0},{"key":1,"sds":"sdsd"}],
+    "firstName":"sujay",
+    "email": "swadique@gmail.com",
+    "password": "password",
     "userType":"buyer"
 }
 
@@ -20,8 +19,8 @@ content-type: application/json
 
 
 {
-    "email": "swadique8@gmail.com",
-    "password": "123456"
+    "email": "sujay@gmail.com",
+    "password": "password"
 }
 
 ###
@@ -50,3 +49,31 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDIzY
 GET http://localhost:8001/user/buyers-list
 content-type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDIzYmIxNzBjNDY4NzgzZTIwMmYyMjQiLCJ1c2VyVHlwZSI6ImJ1eWVyIiwiaWF0IjoxNjEyOTU4NDE0LCJleHAiOjE2MTMwNDQ4MTR9.d8GfzVQTluqq0y1QinLPAywc2X5vHPKGvFaSKqAPAvs
+
+###
+
+POST http://localhost:8001/user//my-slots
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDI5NDVjNzZmZjQ5MDZlMDM5YTlmNzkiLCJ1c2VyVHlwZSI6InNlbGxlciIsImlhdCI6MTYxMzMxNzYwNywiZXhwIjoxNjEzNDA0MDA3fQ.IGDaRarBwkh6B4u6-prjMNoS4InDf17-fToILw3Hors
+
+{
+    "timeSlots":[{"key":"6","day":"sun","status":"active","startTime":"10001","endTime":"20000","duration":"600"}]
+}
+
+###
+
+POST http://localhost:8001/appointment/
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDI5NjMyMjNjMTQ3ODg3MTgyZTgwMzYiLCJ1c2VyVHlwZSI6InNlbGxlciIsImlhdCI6MTYxMzMyNTE0NywiZXhwIjoxNjEzNDExNTQ3fQ.V4a-0auUY4wtSFcJdS2kqh_l3gTmeetFuccYbw9WI-E
+
+{
+    "sellerId":"602963223c147887182e8036",
+    "slotId":"0",
+    "startTime":"2021-02-14T17:58:08.529Z",
+    "duration":"60"
+}
+
+###
+GET http://localhost:8001/appointment?sellerId=602963223c147887182e8036
+content-type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MDI5NjMyMjNjMTQ3ODg3MTgyZTgwMzYiLCJ1c2VyVHlwZSI6InNlbGxlciIsImlhdCI6MTYxMzMyNTE0NywiZXhwIjoxNjEzNDExNTQ3fQ.V4a-0auUY4wtSFcJdS2kqh_l3gTmeetFuccYbw9WI-E

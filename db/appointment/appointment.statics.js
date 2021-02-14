@@ -1,47 +1,50 @@
-const ErrorResponse = require("../../utils/ErrorResponse");
-const SuccessResponse = require("../../utils/SuccessResponse");
+const AppointmentModel = require("./appointment.model");
 
-async function createNewAppointment(
-  buyerId,sellerId,time,duration
-) {
-  return new Promise((resolve, reject) => {
-    try {
-      this.create(user, function (error, document) {
-        if (error) {
-          if (error.name === "MongoError" && error.code === 11000) {
-            reject(new ErrorResponse("Email already exists"));
-          } else {
-            reject(new ErrorResponse(error.message));
-          }
-        } else {
-          resolve(new SuccessResponse(document));
-        }
-      });
-    } catch (e) {
-      reject(new ErrorResponse(e.message));
-    }
-  });
-}
-async function authenticateEmailAndPassword(email, password) {
-  return new Promise((resolve, reject) => {
-    try {
-      this.findOne({ email: email }, function (error, document) {
-        if (error) {
-          reject(new ErrorResponse(error.message));
-        } else {
-          resolve(new SuccessResponse(document));
-        }
-      });
-    } catch (e) {
-      reject(new ErrorResponse(e.message));
-    }
-  });
+async function createNewAppointment({
+  buyerId,
+  sellerId,
+  startTime,
+  duration,
+  slotId,
+}) {
+  const scheduledAppointments = await this.find({
+    sellerId,
+  }).exec();
+  //   if (scheduledAppointments.length) {
+  //     throw new Error("Conflict");
+  //   }
+  try {
+    const newAppointment = await this.create({
+      buyerId,
+      sellerId,
+      startTime,
+      duration,
+      slotId,
+    });
+    return newAppointment;
+  } catch (e) {
+    console.log(e);
+    throw e;
+  }
 }
 
-async function findByEmail(email) {
-  const document = await this.findOne({email:email}).lean();
-  return document;
+async function getAppointments({
+  buyerId,
+  sellerId,
+  slotId,
+  date,
+  status = [],
+  page = 0,
+  limit = 5,
+}) {
+  try {
+    const skipPage = page * limit;
+    let query = { sellerId };
+    const appointments = await this.find(query);
+    return appointments;
+  } catch (e) {
+    throw e;
+  }
 }
 
-
-module.exports = { insertNewUser, findByEmail };
+module.exports = { createNewAppointment, getAppointments };

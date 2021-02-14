@@ -8,6 +8,7 @@ const UserPermissions = {
   [UsersList.SELLER]: [
     PermissionsList.VIEW_ALL_BUYERS,
     PermissionsList.VIEW_MY_PROFILE,
+    PermissionsList.UPDATE_MY_SLOTS,
   ],
 };
 

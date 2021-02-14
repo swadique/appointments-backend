@@ -16,7 +16,6 @@ router.post(
   );
 router.get("/sellers-list",checkPermission(PermissionsList.VIEW_ALL_SELLERS), userController.getAllSellers);
 router.get("/buyers-list",checkPermission(PermissionsList.VIEW_ALL_BUYERS), userController.getAllBuyers);
-router.post("/")
-
+router.post("/my-slots",checkPermission(PermissionsList.UPDATE_MY_SLOTS), userController.updateMySlots);
 
 module.exports.userRoutes = router;
