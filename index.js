@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use("/public", publicRoutes);
 app.use("/user", authMiddleWare, userRoutes);
-app.use("/appointment", appointmentsRoutes);
+app.use("/appointment", authMiddleWare, appointmentsRoutes);
 
 app.listen(PORT, () => {
   console.log(`\u26a1[server]: Server is running at http://localhost:${PORT}`);

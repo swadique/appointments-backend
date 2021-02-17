@@ -1,23 +1,36 @@
-const AppointmentModel = require("./appointment.model");
+const { date } = require("joi");
+const { Types } = require("mongoose");
+const AppointmentStatus = require("../../constants/AppointmentStatus");
+const moment = require("moment");
 
 async function createNewAppointment({
-  buyerId,
-  sellerId,
+  buyer,
+  seller,
   startTime,
+  endTime,
+  appointmentDate,
   duration,
   slotId,
 }) {
-  const scheduledAppointments = await this.find({
-    sellerId,
-  }).exec();
-  //   if (scheduledAppointments.length) {
-  //     throw new Error("Conflict");
-  //   }
   try {
-    const newAppointment = await this.create({
-      buyerId,
-      sellerId,
+    console.log(buyer, seller, startTime, endTime, duration, slotId);
+    const activeAppointments = await this.getAppointments({
+      seller,
+      slotId,
       startTime,
+      endTime,
+      appointmentDate,
+      status: [AppointmentStatus.PENDING, AppointmentStatus.ACCEPTED],
+    });
+    if (activeAppointments.length > 0) {
+      throw new Error("Appointment already booked");
+    }
+    const newAppointment = await this.create({
+      buyer,
+      seller,
+      startTime,
+      endTime,
+      appointmentDate,
       duration,
       slotId,
     });
@@ -29,18 +42,48 @@ async function createNewAppointment({
 }
 
 async function getAppointments({
-  buyerId,
-  sellerId,
+  buyer,
+  seller,
   slotId,
-  date,
+  startTime,
+  endTime,
   status = [],
+  appointmentDate,
   page = 0,
   limit = 5,
 }) {
   try {
     const skipPage = page * limit;
-    let query = { sellerId };
-    const appointments = await this.find(query);
+    let query = {};
+    if (seller) {
+      query["seller"] = seller;
+    }
+    if (buyer) {
+      query["buyer"] = buyer;
+    }
+    if (slotId) {
+      query["slotId"] = slotId;
+    }
+    if (startTime) {
+      query["startTime"] = startTime;
+    }
+    if (endTime) {
+      query["startTime"] = startTime;
+    }
+    if (status.length > 0) {
+      query["status"] = { $in: status };
+    }
+    if (appointmentDate) {
+      query["appointmentDate"] = {
+     
+        $gte: moment(appointmentDate).clone().startOf("day").toISOString(),
+        $lte: moment(appointmentDate).clone().endOf("day").toISOString(),
+      };
+    }
+    const appointments = await this.find(query)
+      .populate("seller")
+      .limit(limit)
+      .skip(skipPage);
     return appointments;
   } catch (e) {
     throw e;

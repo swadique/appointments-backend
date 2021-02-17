@@ -17,7 +17,7 @@ const TimeSlotSchema = new Schema({
   startTime: String,
   endTime: String,
   timeZone: String,
-  duration:Number
+  duration: Number,
 });
 
 const UserSchema = new Schema({
@@ -34,13 +34,13 @@ const UserSchema = new Schema({
   timeSlots: {
     type: [TimeSlotSchema],
     default: [
-      { slotId: 0, day: "sun", status: "disabled" },
-      { slotId: 1, day: "mon", status: "disabled" },
-      { slotId: 2, day: "tue", status: "disabled" },
-      { slotId: 3, day: "wed", status: "disabled" },
-      { slotId: 4, day: "thu", status: "disabled" },
-      { slotId: 5, day: "fri", status: "disabled" },
-      { slotId: 6, day: "sat", status: "disabled" },
+      { slotId: 0, day: "Sunday", status: "disabled" },
+      { slotId: 1, day: "Monday", status: "disabled" },
+      { slotId: 2, day: "Tuesday", status: "disabled" },
+      { slotId: 3, day: "Wednesday", status: "disabled" },
+      { slotId: 4, day: "Thursday", status: "disabled" },
+      { slotId: 5, day: "Friday", status: "disabled" },
+      { slotId: 6, day: "Saturday", status: "disabled" },
     ],
   },
 });
