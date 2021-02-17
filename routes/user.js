@@ -12,7 +12,7 @@ router.get(
 router.post(
     "/",
     checkPermission(PermissionsList.EDIT_MY_PROFILE),
-    userController.getMyProfile
+    userController.updateMyProfile
   );
 router.get("/sellers-list",checkPermission(PermissionsList.VIEW_ALL_SELLERS), userController.getAllSellers);
 router.get("/buyers-list",checkPermission(PermissionsList.VIEW_ALL_BUYERS), userController.getAllBuyers);

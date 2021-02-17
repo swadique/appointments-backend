@@ -81,7 +81,7 @@ async function getAppointments({
       };
     }
     const appointments = await this.find(query)
-      .populate("seller")
+      .populate("seller").populate("buyer")
       .limit(limit)
       .skip(skipPage);
     return appointments;

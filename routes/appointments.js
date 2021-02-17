@@ -4,11 +4,15 @@ const checkPermission = require("../middlewares/checkPermission");
 const PermissionsList = require("../permissions/permissions");
 const router = express.Router();
 
-router.post("/", AppointmentController.createNewAppointment);
-router.get(
+router.post(
   "/",
   checkPermission(PermissionsList.CREATE_APPOINTMENTS),
-  AppointmentController.getAppointments
+  AppointmentController.createNewAppointment
+);
+router.get(
+  "/",
+  checkPermission(PermissionsList.VIEW_MY_APPOINTMENTS),
+  AppointmentController.getMyAppointments
 );
 router.get(
   "/available-intervals",

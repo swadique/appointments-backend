@@ -8,7 +8,7 @@ const TimeSlotSchema = new Schema({
   slotId: { type: String, enum: [0, 1, 2, 3, 4, 5, 6] },
   day: {
     type: String,
-    enum: ["mon", "tue", "wed", "thu", "fri", "sat", "sun"],
+    enum: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
   },
   status: {
     type: String,

@@ -1,6 +1,6 @@
 const AppointmentStatus = {
-  PENDING: "PENDING",
-  ACCEPTED: "ACCEPTED",
-  REJECTED: "REJECTED",
+  PENDING: "pending",
+  ACCEPTED: "accepted",
+  REJECTED: "rejected",
 };
 module.exports = AppointmentStatus

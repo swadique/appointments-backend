@@ -3,6 +3,7 @@ const appointmentsHelper = require("../helper/appointmentsHelper");
 const HttpCodes = require("../constants/HttpCode");
 const ResponseMessages = require("../constants/ResponseMessage");
 const AppointmentStatus = require("../constants/AppointmentStatus");
+const UsersList = require("../permissions/usersList");
 
 async function createNewAppointment(req, res, next) {
   try {
@@ -32,20 +33,26 @@ async function createNewAppointment(req, res, next) {
       .send(ResponseMessages.FAILED_OPERATION);
   }
 }
-async function getAppointments(req, res, next) {
+async function getMyAppointments(req, res, next) {
   try {
     const {
-      seller,
       duration,
       startTime,
       endTIme,
       appointmentDate,
       slotId,
-      buyer,
-      status = [AppointmentStatus.PENDING],
+      status,
       page,
       limit,
     } = req.query;
+    let buyer;
+    let seller;
+    const userType = req.userType
+    if(userType === UsersList.BUYER){
+      buyer = req.userId;
+    }else{
+      seller = req.userId;
+    }
     const appointments = await AppointmentModel.getAppointments({
       seller,
       status,
@@ -86,7 +93,7 @@ async function getAvailableSlots(req, res, next) {
 const AppointmentController = {
   createNewAppointment,
   getAvailableSlots,
-  getAppointments,
+  getMyAppointments,
 };
 
 module.exports = AppointmentController;
