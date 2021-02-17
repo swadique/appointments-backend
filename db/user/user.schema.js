@@ -31,6 +31,7 @@ const UserSchema = new Schema({
   updated: { type: Date, default: Date.now },
   password: String,
   profilePic: String,
+  isAllSlotsActive: Boolean,
   timeSlots: {
     type: [TimeSlotSchema],
     default: [

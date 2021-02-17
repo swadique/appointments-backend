@@ -5,7 +5,7 @@ const comparePassword = require("../utils/comparePassword");
 const encryptPassword = require("../utils/encryptPassword");
 const ErrorResponse = require("../utils/ErrorResponse");
 const generateAuthToken = require("../utils/generateAuthToken");
-const SuccessResponse = require("../utils/SuccessResponse");
+const path = require("path");
 
 async function createNewUser(req, res, next) {
   const userData = req.body;
@@ -58,7 +58,17 @@ async function login(req, res, next) {
     res.status(HttpCode.INTERNAL_SERVER_ERROR);
   }
 }
+async function getFile(req, res) {
+  try {
+    let fileName = req.params.fileName;
+    let filePath = path.join(__dirname,'..', process.env.RESOURCES_PATH, fileName);
+    res.status(HttpCode.OK).sendFile(filePath);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(HttpCode.INTERNAL_SERVER_ERROR).send(ResponseMessages.NO_DATA_FOUND);
+  }
+}
 
-const PublicController = { createNewUser, login };
+const PublicController = { createNewUser, login, getFile };
 
 module.exports = PublicController;

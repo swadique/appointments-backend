@@ -30,6 +30,7 @@ const ResponseMessages = {
   NO_SCHEDULE_FOUND: "No schedule found",
   SCHEDULE_ALREADY: "This time slot is already scheduled",
   FAILED_OPERATION: "Operation failed",
+  DB_UPDATION_FAILED: "Db updation failed",
 };
 
 module.exports = ResponseMessages;

@@ -17,5 +17,6 @@ router.post(
 router.get("/sellers-list",checkPermission(PermissionsList.VIEW_ALL_SELLERS), userController.getAllSellers);
 router.get("/buyers-list",checkPermission(PermissionsList.VIEW_ALL_BUYERS), userController.getAllBuyers);
 router.post("/my-slots",checkPermission(PermissionsList.UPDATE_MY_SLOTS), userController.updateMySlots);
+router.patch("/profile-pic",checkPermission(PermissionsList.UPDATE_MY_PROFILE_PICTURE), userController.updateProfilePicture);
 
 module.exports.userRoutes = router;

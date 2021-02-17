@@ -3,14 +3,26 @@ const cors = require("cors");
 require("dotenv").config();
 const morgan = require("morgan");
 const bodyParser = require("body-parser");
+const fileUploader = require("express-fileupload");
 const MongoClient = require("./db/MongoClient");
 const { appointmentsRoutes } = require("./routes/appointments");
 const { publicRoutes } = require("./routes/public");
 const authMiddleWare = require("./middlewares/authMiddleWare");
 const { userRoutes } = require("./routes/user");
+
 const app = express();
 const PORT = process.env.PORT;
+
 MongoClient.connect();
+
+app.use(
+  fileUploader({
+    limits: { fileSize: 50 * 1024 * 1024 },
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+    debug: true,
+  })
+);
 app.use(morgan("dev"));
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -12,7 +12,7 @@ async function getMyProfile(req, res, next) {
   try {
     const user = await UserModel.findById(
       userId,
-      "firstName lastName email userType timeSlots "
+      "firstName lastName email userType timeSlots profilePic"
     ).exec();
     res.status(HttpCode.OK).send(user);
   } catch (e) {
@@ -24,7 +24,7 @@ async function getAllSellers(req, res, next) {
   try {
     const user = await UserModel.find(
       { userType: UsersList.SELLER },
-      "firstName email userType"
+      "firstName email userType timeSlots profilePic "
     ).exec();
     res.status(HttpCode.OK).send(user);
   } catch (e) {
@@ -36,7 +36,7 @@ async function getAllBuyers(req, res, next) {
   try {
     const user = await UserModel.find(
       { userType: UsersList.BUYER },
-      "_id firstName lastName email userType timeSlots"
+      "_id firstName lastName email userType profilePic"
     ).exec();
     res.status(HttpCode.OK).send(user);
   } catch (e) {
@@ -59,11 +59,38 @@ async function updateMySlots(req, res, next) {
     res.status(HttpCode.INTERNAL_SERVER_ERROR).send(e.message);
   }
 }
+async function updateProfilePicture(req, res, next) {
+  try {
+    profilePic = req.files.profilePic;
+    const { userId } = req;
+    const timeNow = Date.now();
+    const fileName = `${process.env.RESOURCES_PATH}pro-pic-${userId}-${timeNow}-${profilePic.name.trim()}`;
+    const filterQuery = { _id: userId };
+    const updateQuery = { profilePic: fileName };
+    profilePic.mv(`${fileName}`, async(err) => {
+      if (err) {
+        throw err
+      } else {
+        const {ok} = await UserModel.updateOne(
+          filterQuery,
+          updateQuery
+        );
+        if(!ok){
+          throw new Error(ResponseMessages.DB_UPDATION_FAILED)
+        }
+        res.status(HttpCode.OK).send(ResponseMessages.PROFILE_PIC_UPDATED)
+      }
+    });
+  } catch (e) {
+    res.status(HttpCode.INTERNAL_SERVER_ERROR).send(ResponseMessages.PROFILE_PIC_NOT_UPDATED);
+  }
+}
 
 const userController = {
   getMyProfile,
   getAllSellers,
   getAllBuyers,
   updateMySlots,
+  updateProfilePicture,
 };
 module.exports = userController;
