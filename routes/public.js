@@ -1,5 +1,6 @@
 const express = require("express");
 const PublicController = require("../controllers/public");
+const fileUploader = require("express-fileupload");
 const PublicRequestSchemas = require("./requestSchemas/publicRequestSchema");
 const requestValidation = require("../middlewares/requestValidation");
 const router = express.Router();
@@ -14,8 +15,12 @@ router.post(
   requestValidation(PublicRequestSchemas.login),
   PublicController.login
 );
-router.get(
-  "/resources/files/:fileName",
+router.get( "/resources/files/:fileName",fileUploader({
+  limits: { fileSize: 50 * 1024 * 1024 },
+  useTempFiles: true,
+  tempFileDir: "/tmp/",
+  debug: true,
+}),
   PublicController.getFile
 );
 

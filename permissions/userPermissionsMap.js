@@ -17,6 +17,7 @@ const UserPermissions = {
     PermissionsList.UPDATE_MY_PROFILE_PICTURE,
     PermissionsList.EDIT_MY_PROFILE,
     PermissionsList.VIEW_MY_APPOINTMENTS,
+    PermissionsList.VIEW_ALL_SELLERS
   ],
 };
 

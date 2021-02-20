@@ -95,6 +95,7 @@ async function updateProfilePicture(req, res, next) {
       }
     });
   } catch (e) {
+    console.log(e.message)
     res
       .status(HttpCode.INTERNAL_SERVER_ERROR)
       .send(ResponseMessages.PROFILE_PIC_NOT_UPDATED);
