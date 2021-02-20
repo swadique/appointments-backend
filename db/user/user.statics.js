@@ -30,7 +30,7 @@ async function findByEmail(email) {
 }
 async function getTimeSlot(userId, slotId) {
   try {
-    const { timeSlots } = await this.findById({ _id: userId }).lean();
+    const { timeSlots } = await this.findById(userId).lean();
     const requiredSlot = timeSlots.find((element) => element.slotId == slotId);
     return requiredSlot;
   } catch (e) {

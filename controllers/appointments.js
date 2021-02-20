@@ -45,12 +45,13 @@ async function getMyAppointments(req, res, next) {
       page,
       limit,
     } = req.query;
+    
     let buyer;
     let seller;
-    const userType = req.userType
-    if(userType === UsersList.BUYER){
+    const userType = req.userType;
+    if (userType === UsersList.BUYER) {
       buyer = req.userId;
-    }else{
+    } else {
       seller = req.userId;
     }
     const appointments = await AppointmentModel.getAppointments({
@@ -75,10 +76,9 @@ async function getMyAppointments(req, res, next) {
 }
 async function getAvailableSlots(req, res, next) {
   try {
-    const { appointmentDate, seller, slotId } = req.query;
+    const { appointmentDate, seller } = req.query;
     const availableSlots = await appointmentsHelper.getAvailableSlots(
       seller,
-      slotId,
       appointmentDate
     );
     res.status(HttpCodes.OK).send(availableSlots);
