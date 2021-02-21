@@ -26,26 +26,39 @@ async function updateMyProfile(req, res, next) {
     res.status(HttpCode.BAD_REQUEST).send(ResponseMessages.INVALID_TOKEN);
   }
   try {
-    const user = await UserModel.findByIdAndUpdate(userId, userData, {}).exec();
-    res.status(HttpCode.UPDATED).send(ResponseMessages.UPDATE_SUCCESSFULLY);
+    const user = await UserModel.findByIdAndUpdate(userId, userData).exec();
+    res.status(HttpCode.OK).send(ResponseMessages.UPDATE_SUCCESSFULLY);
   } catch (e) {
-    console.log(e.message)
-    res.status(HttpCode.INTERNAL_SERVER_ERROR).send(ResponseMessages.FAILED_OPERATION);
+    console.log(e.message);
+    res
+      .status(HttpCode.INTERNAL_SERVER_ERROR)
+      .send(ResponseMessages.FAILED_OPERATION);
   }
 }
 async function getAllSellers(req, res, next) {
-  const userId = req.userId;
   try {
+    const { searchKey, filter } = req.query;
+    let query = {
+      userType: UsersList.SELLER,
+      $or: [
+        { firstName: { $regex: searchKey, $options: "i" } },
+        { lastName: { $regex: searchKey, $options: "i" } },
+      ],
+    };
+    const userId = req.userId;
+    if (filter === "available") {
+      query.isAllSlotsActive = true;
+    }
     const user = await UserModel.find(
-      { userType: UsersList.SELLER },
-      "firstName email userType timeSlots profilePic "
+      query,
+      "firstName email userType timeSlots profilePic isAllSlotsActive"
     ).exec();
     res.status(HttpCode.OK).send(user);
   } catch (e) {
     res.status(HttpCode.INTERNAL_SERVER_ERROR).send(e.message);
   }
 }
-async function getAllBuyers(req, res, next) {
+async function getAllBuyers(req, res) {
   const userId = req.userId;
   try {
     const user = await UserModel.find(
@@ -95,7 +108,7 @@ async function updateProfilePicture(req, res, next) {
       }
     });
   } catch (e) {
-    console.log(e.message)
+    console.log(e.message);
     res
       .status(HttpCode.INTERNAL_SERVER_ERROR)
       .send(ResponseMessages.PROFILE_PIC_NOT_UPDATED);

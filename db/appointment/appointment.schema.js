@@ -8,11 +8,11 @@ const Schema = mongoose.Schema;
 
 const AppointmentSchema = new Schema(
   {
-    buyer: {type:Schema.Types.ObjectId,ref:'user'},
-    seller:{type:Schema.Types.ObjectId,ref:'user'},
+    buyer: { type: Schema.Types.ObjectId, ref: "user" },
+    seller: { type: Schema.Types.ObjectId, ref: "user" },
     slotId: String,
     startTime: String,
-    endTime:String,
+    endTime: String,
     appointmentDate: Date,
     duration: String,
     status: {
@@ -22,6 +22,7 @@ const AppointmentSchema = new Schema(
         AppointmentStatus.ACCEPTED,
         AppointmentStatus.PENDING,
         AppointmentStatus.REJECTED,
+        AppointmentStatus.CANCELLED,
       ],
     },
     updated: { type: Date, default: Date.now },

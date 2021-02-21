@@ -19,5 +19,20 @@ router.get(
   checkPermission(PermissionsList.VIEW_AVAILABLE_INTERVALS),
   AppointmentController.getAvailableSlots
 );
+router.post(
+  "/reject",
+  checkPermission(PermissionsList.REJECT_APPOINTMENT),
+  AppointmentController.rejectAppointment
+);
+router.post(
+  "/accept",
+  checkPermission(PermissionsList.ACCEPT_APPOINTMENT),
+  AppointmentController.acceptAppointment
+);
+router.post(
+  "/cancel",
+  checkPermission(PermissionsList.CANCEL_APPOINTMENT),
+  AppointmentController.cancelAppointment
+);
 
 module.exports.appointmentsRoutes = router;

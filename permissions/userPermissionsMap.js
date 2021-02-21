@@ -9,6 +9,7 @@ const UserPermissions = {
     PermissionsList.UPDATE_MY_PROFILE_PICTURE,
     PermissionsList.EDIT_MY_PROFILE,
     PermissionsList.VIEW_MY_APPOINTMENTS,
+    PermissionsList.CANCEL_APPOINTMENT
   ],
   [UsersList.SELLER]: [
     PermissionsList.VIEW_ALL_BUYERS,
@@ -17,7 +18,9 @@ const UserPermissions = {
     PermissionsList.UPDATE_MY_PROFILE_PICTURE,
     PermissionsList.EDIT_MY_PROFILE,
     PermissionsList.VIEW_MY_APPOINTMENTS,
-    PermissionsList.VIEW_ALL_SELLERS
+    PermissionsList.VIEW_ALL_SELLERS,
+    PermissionsList.ACCEPT_APPOINTMENT,
+    PermissionsList.REJECT_APPOINTMENT
   ],
 };
 

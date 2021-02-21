@@ -5,7 +5,7 @@ class MongoClient {
     mongoose
       .connect("mongodb://localhost:27017/AppointmentsDb", {
         useNewUrlParser: true,
-        useFindAndModify: true,
+        useFindAndModify: false,
         useUnifiedTopology: true,
         useCreateIndex: true,
       })
