@@ -3,7 +3,6 @@ const ResponseMessages = require("../constants/ResponseMessage");
 const UserModel = require("../db/user/user.model");
 const comparePassword = require("../utils/comparePassword");
 const encryptPassword = require("../utils/encryptPassword");
-const ErrorResponse = require("../utils/ErrorResponse");
 const generateAuthToken = require("../utils/generateAuthToken");
 const path = require("path");
 
@@ -49,6 +48,8 @@ async function login(req, res, next) {
       if (comparePassword(password, savedPassword)) {
         const authToken = generateAuthToken(userData._id, userData.userType);
         res.status(HttpCode.OK).send({ authToken: authToken, ...restUserData });
+      }else{
+        res.status(HttpCode.UNAUTHORIZED).send(ResponseMessages.PASSWORD_DONT_MATCH);
       }
     }
   } catch (e) {
