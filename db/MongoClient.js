@@ -14,7 +14,7 @@ class MongoClient {
     database.once("open", () => {
       console.log("Database connected");
     });
-    database.on("error", () => {
+    database.on("error", (error) => {
       console.log("Database error:", error);
     });
   }
