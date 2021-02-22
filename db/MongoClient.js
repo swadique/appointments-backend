@@ -1,9 +1,10 @@
 const mongoose = require("mongoose");
 let database = mongoose.connection;
+const MONGODB_URI = process.env.MONGODB_URI
 class MongoClient {
   static async connect() {
     mongoose
-      .connect("mongodb://localhost:27017/AppointmentsDb", {
+      .connect(MONGODB_URI, {
         useNewUrlParser: true,
         useFindAndModify: false,
         useUnifiedTopology: true,
