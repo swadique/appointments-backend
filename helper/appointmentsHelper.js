@@ -26,10 +26,7 @@ async function getAvailableSlots(seller, appointmentDate) {
     while (slotTime < endTime) {
       let slotEnd = slotTime.clone();
       slotEnd.add(duration, "minutes");
-      if (
-        !isBookedSlot(slotTime, slotEnd, appointments) &&
-        !isPastSlot(slotTime)
-      ) {
+      if (!isBookedSlot(slotTime, slotEnd, appointments)) {
         availableTimeSlots.push({
           startTime: slotTime.format("HH:mm"),
           endTime: slotEnd.format("HH:mm"),
